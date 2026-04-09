@@ -19,4 +19,13 @@ class PostController extends Controller
             'user' => $user
         ]);
     }
+
+    public function create()
+    {
+        // dd("creando post....");
+        // return view('dashboard', [
+        //     'user' => $user
+        // ]);
+        return view('posts.create');
+    }
 }
