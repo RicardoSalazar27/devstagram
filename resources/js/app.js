@@ -13,18 +13,20 @@ const dropzone = new Dropzone('#dropzone', {
     uploadMultiple: false
 });
 
-dropzone.on('sending', function(file, xhr, formData) {
-    console.log(file);//vemos la informacion del archivo
-    console.log(formData);//vemos la informacion del formulario
-})
+// dropzone.on('sending', function(file, xhr, formData) {
+//     console.log(file);//vemos la informacion del archivo
+//     console.log(formData);//vemos la informacion del formulario
+// })
 
 dropzone.on('success', function(file, response) {
-    console.log(response);//vemos la respuesta del servidor
+    //console.log(response.imagen);//vemos la respuesta del servidor
+    //asignamos el valor de la imagen al input oculto
+    document.querySelector('[name="imagen"]').value = response.imagen;
 })
 
-dropzone.on('error', function(file, message) {
-    console.log(message);//vemos la respuesta del servidor si falla la subida
-})
+// dropzone.on('error', function(file, message) {
+//     console.log(message);//vemos la respuesta del servidor si falla la subida
+// })
 
 dropzone.on('removedfile', function(){
     console.log('archivo eliminado');

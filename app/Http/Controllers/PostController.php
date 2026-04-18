@@ -20,6 +20,7 @@ class PostController extends Controller
         ]);
     }
 
+    //Permite mostrar el fomulario
     public function create()
     {
         // dd("creando post....");
@@ -27,5 +28,14 @@ class PostController extends Controller
         //     'user' => $user
         // ]);
         return view('posts.create');
+    }
+    // Recibe la informacion del formulario, valida y manda a la base de datos
+    public function store(Request $request){
+        // dd('Creando publicacion...');
+        $this->validate($request, [
+            'titulo' => 'required|max:255',
+            'descripcion' => 'required',
+            'imagen' => 'required'
+        ]);
     }
 }
