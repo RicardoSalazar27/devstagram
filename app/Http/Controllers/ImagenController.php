@@ -17,17 +17,13 @@ class ImagenController extends Controller
         $imagen = $request->file('file');
         $nombreImagen = Str::uuid() . '.' . $imagen->extension();
 
-        // Aquí va decode(), no make() ni read()
-        $imagenServidor = Image::decode($imagen);
+        if (!file_exists(public_path('uploads'))) {
+            mkdir(public_path('uploads'), 0755, true);
+        }
 
-        // Redimensionar / recortar
+        $imagenServidor = Image::read($imagen);
         $imagenServidor->cover(1000, 1000);
-
-        // Ruta destino
-        $imagenPath = public_path('uploads/' . $nombreImagen);
-
-        // Guardar
-        $imagenServidor->save($imagenPath);
+        $imagenServidor->save(public_path('uploads/' . $nombreImagen));
 
         return response()->json([
             'imagen' => $nombreImagen
