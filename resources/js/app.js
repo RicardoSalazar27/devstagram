@@ -10,7 +10,26 @@ const dropzone = new Dropzone('#dropzone', {
     addRemoveLinks: true,//permite eliminar imagenes
     dictRemoveFile: 'Eliminar Archivo',
     maxFiles: 1,
-    uploadMultiple: false
+    uploadMultiple: false,
+
+    init: function() {
+        // alert('inicializando dropzone');
+        //EN caso de que haya una imagen en el input oculto, mostrarla en dropzone
+        if(document.querySelector('[name="imagen"]').value.trim()) {
+            const imagenPublicada = {};
+            imagenPublicada.size = 1234;
+            imagenPublicada.name = document.querySelector('[name="imagen"]').value;
+            
+            //agregamos la imagen a dropzone
+            this.options.addedfile.call(this, imagenPublicada);
+            
+            //asignamos la imagen al thumbnail de dropzone
+            this.options.thumbnail.call(this, imagenPublicada, `/uploads/${imagenPublicada.name}`);
+            
+            // Clases de dropzone para marcar la imagen como subida correctamente
+            imagenPublicada.previewElement.classList.add('dz-success', 'dz-complete');
+        }
+    }
 });
 
 // dropzone.on('sending', function(file, xhr, formData) {
@@ -29,5 +48,7 @@ dropzone.on('success', function(file, response) {
 // })
 
 dropzone.on('removedfile', function(){
-    console.log('archivo eliminado');
+    // console.log('archivo eliminado');
+    //eliminar el valor del input oculto    
+    document.querySelector('[name="imagen"]').value = '';
 })
