@@ -16,8 +16,13 @@ class PostController extends Controller
     public function index(User $user)
     {
         // dd($user->username);
+
+        $posts = Post::where('user_id', $user->id)->get();
+        // dd($posts);
+
         return view('dashboard', [
-            'user' => $user
+            'user' => $user,
+            'posts' => $posts
         ]);
     }
 
@@ -39,7 +44,23 @@ class PostController extends Controller
             'imagen' => 'required'
         ]);
 
-        Post::create([
+        // Post::create([
+        //     'titulo' => $request->titulo,
+        //     'descripcion' => $request->descripcion,
+        //     'imagen' => $request->imagen,
+        //     'user_id' => auth()->user()->id
+        // ]);
+
+        //Otra forma de crear un registro
+        // $post = new Post;
+        // $post->titulo = $request->titulo;
+        // $post->descripcion = $request->descripcion;
+        // $post->imagen = $request->imagen;
+        // $post->user_id = auth()->user()->id;
+        // $post->save();
+
+        // Guardando usando relaciones de eloquent
+        $request->user()->posts()->create([
             'titulo' => $request->titulo,
             'descripcion' => $request->descripcion,
             'imagen' => $request->imagen,
