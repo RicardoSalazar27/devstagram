@@ -22,6 +22,14 @@ class Post extends Model
         //relacion donde un post pertenece a un usuario
         // return $this->belongsTo(User::class);
 
+        /*
+        lA DIFERENCIA ENTRE hasOne y este, es que hasOne es tener
+        aqui un post no tiene un usuario
+
+        LO CORRECTO ES, una publicacion PERTENECE a un usuario
+
+        belongsTo es el counter de hasOne
+        */
         //solo traemos la informacion necesaria
         return $this->belongsTo(User::class)->select(['name', 'username']);
     }

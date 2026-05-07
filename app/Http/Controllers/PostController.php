@@ -17,7 +17,8 @@ class PostController extends Controller
     {
         // dd($user->username);
 
-        $posts = Post::where('user_id', $user->id)->get();
+        // $posts = Post::where('user_id', $user->id)->get();
+        $posts = Post::where('user_id', $user->id)->paginate(20);
         // dd($posts);
 
         return view('dashboard', [
@@ -35,6 +36,7 @@ class PostController extends Controller
         // ]);
         return view('posts.create');
     }
+    
     // Recibe la informacion del formulario, valida y manda a la base de datos
     public function store(Request $request){
         // dd('Creando publicacion...');
@@ -68,5 +70,18 @@ class PostController extends Controller
         ]);
 
         return redirect()->route('posts.index', auth()->user()->username);
+    }
+
+    
+    /* 
+    Mostrar la publicacion un poco mas grande en el muro del usuarios al seleccioanrla
+    
+    primero se pasa user, la vista la manda, pero el metodo la cacha ya que la necesita en 
+    web.php para crear la ruta usando el username del usuario
+    */
+    public function show(User $user, Post $post){
+        return view('posts.show', [
+            'post' => $post
+        ]);
     }
 }
