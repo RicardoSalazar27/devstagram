@@ -14,4 +14,10 @@ class Comentario extends Model
         'post_id',
         'comentario'
     ];
+
+    public function user()
+    {
+        // UN comentio pertenece a un usuario
+        return $this->belongsTo(User::class);
+    }
 }

@@ -19,6 +19,21 @@
                 <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
                 <p class="mt-5">{{ $post->descripcion}}</p>
             </div>
+            
+            @auth
+                @if ($post->user_id === auth()->user()->id)
+                    {{-- Elimina solo la publicacion si la persona que creo la publicacion es la misma que esta autentificada --}}
+                    <form method="POST" action="{{ route('posts.destroy', $post) }}">
+                        @csrf
+                        @method('DELETE') {{-- Laravel no soporta el metodo DELETE en los formularios, por lo tanto, se utiliza este metodo para simularlo metodo spoofing --}}
+                        <input 
+                            type="submit"
+                            value="Eliminar publicacion"
+                            class="bg-red-500 hover:bg-red-600 p-2 rounded text-white font-bold mt-4 cursor-pointer"
+                        >
+                    </form>
+                @endif
+            @endauth
         </div>
         <div class="md:w-1/2 p-5">
             <div class="shadow bg-white p-5 mb-5">
@@ -54,6 +69,24 @@
                         >
                     </form>
                 @endauth
+                {{-- Aqui si pueden visualizar los comentarios de una publicacion, ya sea que este autentifaca la persona que mira el perfil o no --}}
+                <div class="bg-white shadow mb-5 max-h-96 overflow-y-scroll mt-10">
+                    {{-- {{ dd($post->comentarios) }} --}}
+                    @if ($post->comentarios->count())
+                        @foreach ($post->comentarios as $comentario)
+                            <div class="p-5 boder-gray-300 border-b">
+                                <a href="{{ route('posts.index', $comentario->user) }}" class="font-bold" >
+                                    {{ $comentario->user->username }}
+                                </a>
+                                {{-- variable que se pasa/nombre de relacion/nombre del campo que se quiere mostrar, en este caso el username del usuario que hizo el comentario --}}
+                                <p>{{ $comentario->comentario }}</p>
+                                <p class="text-gray-500 text-sm" >{{ $comentario->created_at->diffForHumans() }}</p>
+                            </div>
+                        @endforeach
+                    @else
+                        <p class="p-10 text-center">No hay comentarios aún</p>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
