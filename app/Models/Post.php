@@ -39,4 +39,14 @@ class Post extends Model
     {
         return $this->hasMany(Comentario::class);
     }
+
+    // Otra relacion
+    // UN post puede tener multiples likes
+    // esta relacion trabaja sobre el modelo de LIKE
+    // eso le hace saber a laravel que va a trabajar sobre la tabla de ese modelo
+    // osea sobre la tabla de "likes"
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }
