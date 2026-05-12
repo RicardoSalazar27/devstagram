@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
@@ -89,6 +90,23 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
-        dd('elimnando...', $post->id);
+        // dd('elimnando...', $post->id);
+        // if($post->user_id === auth()->user()->id){
+        //     dd('la persona autenticada es la misma que esta intentando borrar el post');
+        // }else{
+        //     dd('la persona autenticada NO es la misma que esta intentando borrar el post');
+        // }
+        $this->authorize('delete', $post);
+        $post->delete();//metodo de eloquent
+
+        //Eliminar la imagen
+        $imagen_path = public_path('uploads/' . $post->imagen);
+        if(File::exists($imagen_path)){
+            unlink($imagen_path);
+        }
+
+        //SI elimina, redirije al muro del usuario autentificado,
+        // Route::get('/{user:username}', [PostController::class, 'index'])->name('posts.index');
+        return redirect()->route('posts.index', auth()->user()->username);
     }
 }

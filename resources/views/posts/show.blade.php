@@ -25,7 +25,7 @@
                     {{-- Elimina solo la publicacion si la persona que creo la publicacion es la misma que esta autentificada --}}
                     <form method="POST" action="{{ route('posts.destroy', $post) }}">
                         @csrf
-                        @method('DELETE') {{-- Laravel no soporta el metodo DELETE en los formularios, por lo tanto, se utiliza este metodo para simularlo metodo spoofing --}}
+                        @method('DELETE') {{--los navegadores no soportan el metodo DELETE en los formularios, por lo tanto, se utiliza este metodo para simularlo metodo spoofing --}}
                         <input 
                             type="submit"
                             value="Eliminar publicacion"
