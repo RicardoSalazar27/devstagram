@@ -43,3 +43,4 @@ Route::post('/{user:username}/posts/{post}', [ComentarioController::class, 'stor
 
 // Like a las fotos
 Route::post('/posts/{post}/likes', [LikeController::class, 'store'])->name('posts.likes.store');
+Route::delete('/posts/{post}/likes', [LikeController::class, 'destroy'])->name('posts.likes.destroy');

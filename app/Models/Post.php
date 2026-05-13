@@ -49,4 +49,18 @@ class Post extends Model
     {
         return $this->hasMany(Like::class);
     }
+
+    //revisar si un uisuario ya le dio me gusta
+    public function checklike(User $user)
+    {
+        /*
+        se situa en la relacion llamada "likes" osea en la tabla likes
+        y revisa/devuelve los post que tengan el like de el user_id
+        ese user_id se le pasara al llamar el metodo
+
+        contains reviosa la tabla de likes, si contiene en la columna de user_id, contiene
+        $user-> id???
+        */
+        return $this->likes->contains('user_id', $user->id);
+    }
 }

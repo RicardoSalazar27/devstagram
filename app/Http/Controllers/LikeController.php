@@ -31,4 +31,23 @@ class LikeController extends Controller
 
         return back();
     }
+
+    public function destroy(Request $request, Post $post)
+    {
+        // dd('eliminando like');
+        /* 
+            DELETE FROM likes
+            WHERE user_id = usuario_logueado
+            AND post_id = post_actual;
+
+            De los likes de Ricardo,
+            borra el que sea del post 8.
+
+            Like pertenece a un usuario y pertenece a un post. Por eso 
+            puedes manejarlo desde User o desde Post, según lo que te convenga.
+        */
+        $request->user()->likes()->where('post_id', $post->id)->delete();
+
+        return back();
+    }
 }
