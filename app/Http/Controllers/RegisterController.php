@@ -22,8 +22,10 @@ class RegisterController extends Controller
         // dd($request->get('username'));
 
         // MOdificar el request
+        /*Slug lo que hace es convertir el texto a un formato amigable para las URL, por ejemplo, si el username es 
+        "Juan Pérez", el slug sería "juan-perez". Esto se logra reemplazando los espacios por guiones y convirtiendo
+        todo a minúsculas.*/
         $request->request->add(['username' => Str::slug($request->username)]);
-
 
         //VALIDACION
         $this->validate($request, [

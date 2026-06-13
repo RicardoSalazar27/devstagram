@@ -7,7 +7,7 @@
 @section('contenido')
     <div class="md:flex md:justify-center">
         <div class="md:w-1/2 bg-white shadow p-6">
-            <form class="mt-10 md:mt-0">
+            <form class="mt-10 md:mt-0" action="{{ route('perfil.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-5">
                     <label for="username" class="mb-2 block uppercase text-gray-500 font-bold" for="username">Username</label>
@@ -20,7 +20,7 @@
                         @enderror "
                         value="{{ auth()->user()->username }}"
                     /> 
-                    @error('name')
+                    @error('username')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
                     @enderror 
                 </div>
