@@ -9,7 +9,6 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
-use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
