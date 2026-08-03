@@ -19,7 +19,7 @@ class PostController extends Controller
         // dd($user->username);
 
         // $posts = Post::where('user_id', $user->id)->get();
-        $posts = Post::where('user_id', $user->id)->paginate(20);
+        $posts = Post::where('user_id', $user->id)->latest()->paginate(20);
         // dd($posts);
 
         return view('dashboard', [
