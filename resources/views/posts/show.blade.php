@@ -10,7 +10,7 @@
             <img src="{{ asset('uploads') . '/' . $post->imagen }}" alt="Imagen del post {{ $post->titulo }}">
             <div class="p-3 flex items-center gap-4">
                 @auth
-
+                    <livewire:like-post />
                     @if ( $post->checklike(auth()->user()) )
                     {{-- SI ya le dio like, puede borrar su like --}}
                         <form method="POST" action="{{route('posts.likes.destroy', $post)}}">
