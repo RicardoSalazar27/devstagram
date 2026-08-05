@@ -10,20 +10,16 @@
             <img src="{{ asset('uploads') . '/' . $post->imagen }}" alt="Imagen del post {{ $post->titulo }}">
             <div class="p-3 flex items-center gap-4">
                 @auth
-                    <livewire:like-post />
-                    @if ( $post->checklike(auth()->user()) )
-                    {{-- SI ya le dio like, puede borrar su like --}}
+                    <livewire:like-post :post="$post" />
+                    {{-- @if ( $post->checklike(auth()->user()) )
                         <form method="POST" action="{{route('posts.likes.destroy', $post)}}">
                             @csrf
                             @method('DELETE')
                             <div class="my-4">
-                                <button type="submit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from HeroIcons by Refactoring UI Inc - https://github.com/tailwindlabs/heroicons/blob/master/LICENSE --><path fill="red" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 8.25c0-2.485-2.099-4.5-4.687-4.5c-1.936 0-3.598 1.126-4.313 2.733c-.715-1.607-2.377-2.733-4.312-2.733C5.098 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12"/></svg>
-                                </button>
+                                
                             </div>
                         </form>
                     @else
-                        {{-- si no le ha dado like le puede dar --}}
                         <form method="POST" action="{{route('posts.likes.store', $post)}}">
                             @csrf
                             <div class="my-4">
@@ -32,14 +28,14 @@
                                 </button>
                             </div>
                         </form>
-                    @endif
+                    @endif --}}
 
                     
                 @endauth
                 {{-- un post tiene muchos likes, la relacion ya se definio, solo hay que contar cuantos likes tiene el post para mostrarlo, y se muestra el numero de likes que tiene el post, y se muestra la palabra "likes" despues del numero de likes. --}}
                 <p class="font-bold" >{{$post->likes->count()}} 
                     <span class="font-normal"> Likes</span>
-                </pc>
+                </p>
             </div>
 
             <div>
